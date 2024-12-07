@@ -8,17 +8,43 @@
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
 	<body>
+        <div class="blur-screen"></div>
+        <div class="modal-window d-flex justify-content-center">
+            <form class="write-modal d-flex justify-content-center">
+                <div class="col-10 d-flex flex-column ">
+                     <p class="modal-title text-center">Запись расхода</p>
+                    <input type="number">
+                    <button class="save">Подтвердить</button>
+                </div>
+            </form>
+            <form class="edit-modal justify-content-center">
+                <div class="col-10 d-flex flex-column">
+                     <p class="modal-title text-center">Запись недельного бюджета</p>
+                    <input type="number">
+                    <button class="save">Подтвердить</button>
+                </div>
+            </form>
+            <form class="clear-modal justify-content-center">
+                <div class="col-10 d-flex flex-column">
+                     <p class="modal-title text-center">Вы точно хотите очистить список?</p>
+                     <div class="buttons d-flex">
+                        <button class="save yes">Да</button>
+                        <button class="save no">Нет</button>
+                     </div>
+                </div>
+            </form>
+        </div>
 		<header>
 			<div class="col-12 func-menu d-flex justify-content-between">
-                <img src="img/edit-pencil-line-01-svgrepo-com.svg" alt="..." class="edit">
-				<img src="img/dark-theme-svgrepo-com.svg" alt="..." class="toggle-theme"></img>
+                <img src="img/edit-pencil-line-01-svgrepo-com.svg" alt="..." class="edit" onclick="edit()">
+				<img src="img/dark-theme-svgrepo-com.svg" alt="..." class="toggle-theme" onclick="toggleTheme()"></img>
 			</div>
 		</header>
 		<section>
 			<div class="col-12 card d-flex flex-row" onclick="Write()">
 				<div class="info-con">
 					<p class="day-budget">428</p>
-					<p class="day-trat">428</p>
+					<p class="day-trat">0</p>
 				</div>
 				<div class="number-con">
 					<p class="day-number">1</p>
@@ -27,7 +53,7 @@
 			<div class="col-12 card d-flex flex-row" onclick="Write()">
 				<div class="info-con">
 					<p class="day-budget">428</p>
-					<p class="day-trat">528</p>
+					<p class="day-trat">0</p>
 				</div>
 				<div class="number-con">
 					<p class="day-number">2</p>
@@ -35,8 +61,8 @@
 			</div>
 			<div class="col-12 card d-flex flex-row" onclick="Write()">
 				<div class="info-con">
-					<p class="day-budget">328</p>
-					<p class="day-trat">200</p>
+					<p class="day-budget">428</p>
+					<p class="day-trat">0</p>
 				</div>
 				<div class="number-con">
 					<p class="day-number">3</p>
@@ -44,8 +70,8 @@
 			</div>
             <div class="col-12 card d-flex flex-row" onclick="Write()">
 				<div class="info-con">
-					<p class="day-budget">328</p>
-					<p class="day-trat">200</p>
+					<p class="day-budget">428</p>
+					<p class="day-trat">0</p>
 				</div>
 				<div class="number-con">
 					<p class="day-number">4</p>
@@ -53,8 +79,8 @@
 			</div>
             <div class="col-12 card d-flex flex-row" onclick="Write()">
 				<div class="info-con">
-					<p class="day-budget">328</p>
-					<p class="day-trat">200</p>
+					<p class="day-budget">428</p>
+					<p class="day-trat">0</p>
 				</div>
 				<div class="number-con">
 					<p class="day-number">5</p>
@@ -62,8 +88,8 @@
 			</div>
             <div class="col-12 card d-flex flex-row" onclick="Write()">
 				<div class="info-con">
-					<p class="day-budget">328</p>
-					<p class="day-trat">200</p>
+					<p class="day-budget">428</p>
+					<p class="day-trat">0</p>
 				</div>
 				<div class="number-con">
 					<p class="day-number">6</p>
@@ -71,8 +97,8 @@
 			</div>
             <div class="col-12 card d-flex flex-row" onclick="Write()">
 				<div class="info-con">
-					<p class="day-budget">328</p>
-					<p class="day-trat">200</p>
+					<p class="day-budget">428</p>
+					<p class="day-trat">0</p>
 				</div>
 				<div class="number-con">
 					<p class="day-number">7</p>

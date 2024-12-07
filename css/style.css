@@ -21,6 +21,70 @@ img:active {
 	transform: scale(0.975);
 	transition: 0.2s;
 }
+.blur-screen {
+	height: 100vh;
+	width: 100vw;
+	position: absolute;
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+	background-color: rgba(127, 127, 127, 0.25);
+	z-index: 99;
+	display: none;
+	opacity: 0;
+	transition: 0.5s;
+}
+.modal-window {
+	transform: translateY(-125%);
+}
+form.write-modal {
+	display: none;
+	visibility: hidden;
+}
+form.edit-modal {
+	display: none;
+	visibility: hidden;
+}
+form.clear-modal {
+	display: none;
+	visibility: hidden;
+}
+.modal-window {
+	background-color: var(--bg-color);
+	position: absolute;
+	border: solid 1px rgba(0, 0, 0, 0.25);
+	border-radius: 15px;
+	height: auto;
+	padding: 10%;
+	width: 90%;
+	margin: 5%;
+	z-index: 100;
+	transition: 0.5s;
+}
+input {
+	border-radius: 5px;
+	margin: 10px 0;
+	border: solid 1px rgba(127, 127, 127, 0.25);
+}
+.modal-title {
+	padding: 0;
+	font-size: 20px;
+}
+.save {
+	border-radius: 5px;
+	padding: 0;
+	background-color: var(--text-color);
+	color: var(--bg-color);
+	border: solid 1px rgba(127, 127, 127, 0.25);
+	transition: 0.15s;
+}
+.save:active {
+	border-radius: 5px;
+	padding: 0;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	border: solid 1px rgba(127, 127, 127, 0.25);
+	transition: 0.15s;
+}
 .card {
 	background-color: rgba(0, 0, 0, 0.0125);
 	height: 100px;
