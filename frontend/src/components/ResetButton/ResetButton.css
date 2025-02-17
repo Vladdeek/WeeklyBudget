@@ -1,0 +1,22 @@
+button {
+	background-color: white;
+	border-radius: 15px;
+	font-size: 20px;
+	border: solid 1px rgba(127, 127, 127, 0.25);
+	color: red;
+	font-weight: 100;
+	transition: 0.25s;
+	height: 45px;
+	width: 150px;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	cursor: pointer;
+	margin-bottom: 10px;
+	&:active {
+		transform: scale(0.9875);
+		background-color: red;
+		color: white;
+		transition: 0.25s;
+	}
+}

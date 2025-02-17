@@ -1,0 +1,88 @@
+/* Стиль для всей модальной области */
+.createTask-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	transition: opacity 0.3s ease;
+}
+
+/* Стиль для экрана, который будет фоном под задачей */
+.screen {
+	position: absolute; /* Используем absolute для выравнивания фона */
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.05); /* Прозрачный черный фон */
+	z-index: 999; /* Фон будет находиться под модальным окном */
+	backdrop-filter: blur(3px);
+	-webkit-backdrop-filter: blur(3px);
+}
+
+/* Стиль для самого модального окна */
+.create-task {
+	background-color: var(--bg-color);
+	border: 1px solid rgba(200, 200, 200, 0.25);
+	filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.09));
+	padding: 20px;
+	border-radius: 25px;
+	width: auto; /* Вы можете изменить размер в зависимости от ваших предпочтений */
+	display: flex;
+	flex-direction: column;
+	align-items: center; /* Центрирует элементы по горизонтали */
+	justify-content: center; /* Центрирует элементы по вертикали */
+	z-index: 1001; /* Модальное окно должно быть выше фона */
+}
+
+.input-task {
+	z-index: 5;
+	height: auto;
+	width: 400px;
+	border-radius: 10px;
+	border: solid 1px rgba(200, 200, 200, 0.25);
+	padding: 0 10px;
+	top: 275px;
+	font-size: 25px;
+	font-weight: 100;
+	outline: 0;
+	background-color: rgba(255, 255, 255, 0.25);
+	color: var(--color);
+	&:focus {
+		border: solid 1px var(color);
+		filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+	}
+	&::placeholder {
+		color: var(--color-text);
+		filter: invert(1);
+		opacity: 0.33;
+	}
+}
+
+.save {
+	border-radius: 10px;
+	border: none;
+	background-color: black;
+	color: white;
+	margin-top: 10px;
+	height: auto;
+	width: auto;
+	padding: 0 10px;
+	font-size: 25px;
+	font-weight: 400;
+	transition: 0.25s;
+	&:hover {
+		transform: scale(1.025);
+		transition: 0.25s;
+	}
+	&:active {
+		transform: scale(0.975);
+		transition: 0.25s;
+	}
+}

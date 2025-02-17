@@ -1,0 +1,39 @@
+.content {
+	border-radius: 15px;
+	padding: 10px;
+	height: 150px;
+	width: auto;
+	position: relative;
+	transition: 0.2s;
+	margin: 2.5% 0;
+	user-select: none;
+	-webkit-user-select: none;
+}
+.content:hover {
+	transition: 0.2s;
+}
+
+.task {
+	font-size: 20px;
+	font-weight: 500;
+	user-select: none;
+	-webkit-user-select: none;
+}
+.del-btn {
+	position: absolute;
+	top: -7px;
+	right: -7px;
+	width: 20px;
+	height: 20px;
+	border: none;
+	font-size: 10px;
+	font-weight: 500;
+	transform: rotate(45deg);
+	opacity: 0;
+	transition: 0.25s;
+	border-radius: 50%;
+}
+.content:hover .del-btn {
+	opacity: 1;
+	transition: 0.25s;
+}

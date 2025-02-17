@@ -1,0 +1,34 @@
+.new {
+	border-radius: 15px;
+	padding: 10px;
+	height: 150px;
+	width: auto;
+	position: relative;
+	transition: 0.2s;
+	margin: 2.5% 0;
+	user-select: none;
+	-webkit-user-select: none;
+}
+.new {
+	border: dashed 2px rgba(0, 0, 0, 0.2);
+	background-image: transparent;
+	cursor: pointer;
+	filter: invert(0);
+	transition: 0.2s;
+	&:hover {
+		border: dashed 2px rgba(0, 0, 0, 0.5);
+		transition: 0.2s;
+	}
+	&:hover img {
+		opacity: 0.5;
+		transition: 0.2s;
+	}
+}
+
+img.add-icon {
+	height: 80%;
+	width: auto;
+	object-fit: fill;
+	opacity: 0.2;
+	transition: 0.2s;
+}

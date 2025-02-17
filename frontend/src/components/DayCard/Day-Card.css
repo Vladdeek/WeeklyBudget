@@ -1,0 +1,83 @@
+:root {
+	--color1: linear-gradient(
+		135deg,
+		#e21c34,
+		#500b28
+	); /* градиент из яркого оранжевого и желтого (похоже на бренд Fanta) */
+	--color6: linear-gradient(
+		135deg,
+		#ed765e,
+		#fea858
+	); /* градиент из яркого голубого и синего (похоже на бренд Twitter) */
+	--color3: linear-gradient(
+		135deg,
+		#ffa300,
+		#f9e866
+	); /* градиент из розового и ярко-красного (похоже на бренд Instagram) */
+	--color4: linear-gradient(
+		135deg,
+		#0a8270,
+		#7cff6b
+	); /* градиент из желтого и красного (похоже на бренд YouTube) */
+	--color5: linear-gradient(
+		135deg,
+		#6fc3f7,
+		#c2fdff
+	); /* градиент из зеленого и светло-зеленого (похоже на бренд Spotify) */
+	--color2: linear-gradient(
+		135deg,
+		#6cd0ff,
+		#1c2e4c
+	); /* градиент из оранжевого и золотисто-желтого (похоже на бренд McDonald's) */
+	--color7: linear-gradient(
+		135deg,
+		#ef88bb,
+		#291850
+	); /* градиент из красного и оранжевого (похоже на бренд Coca-Cola) */
+}
+
+.card {
+	background-color: rgba(0, 0, 0, 0.0125);
+	height: 100px !important;
+	width: 95% !important;
+	border-radius: 15px;
+	margin: 2.5%;
+	border: solid 1px rgba(0, 0, 0, 0.25);
+	transition: 0.2s;
+	user-select: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	cursor: pointer;
+	&:active {
+		transform: scale(0.9875);
+		transition: 0.2s;
+	}
+}
+.number-con {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	overflow: hidden;
+}
+.info-con {
+	width: 100%;
+	height: 100%;
+}
+.dailyCost {
+	display: flex;
+	align-items: start;
+	height: 50%;
+	margin: 0;
+	padding: 0 5px;
+	font-size: 45px;
+	font-weight: 600;
+}
+.day-number {
+	font-size: 100px;
+	font-weight: 900;
+	margin: 0;
+	padding: 0 7.5%;
+	opacity: 0.66;
+}
