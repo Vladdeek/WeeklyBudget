@@ -38,9 +38,9 @@
 
 .card {
 	background-color: rgba(0, 0, 0, 0.0125);
-	height: 100px !important;
+	height: 125px !important;
 	width: 95% !important;
-	border-radius: 15px;
+	border-radius: 15px !important;
 	margin: 2.5%;
 	border: solid 1px rgba(0, 0, 0, 0.25);
 	transition: 0.2s;

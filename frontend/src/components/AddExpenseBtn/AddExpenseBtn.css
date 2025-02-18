@@ -10,25 +10,24 @@
 	-webkit-user-select: none;
 }
 .new {
-	border: dashed 2px rgba(0, 0, 0, 0.2);
+	border: dashed 2px rgba(0, 0, 0, 0.5);
 	background-image: transparent;
 	cursor: pointer;
 	filter: invert(0);
 	transition: 0.2s;
-	&:hover {
-		border: dashed 2px rgba(0, 0, 0, 0.5);
-		transition: 0.2s;
-	}
-	&:hover img {
-		opacity: 0.5;
-		transition: 0.2s;
-	}
 }
 
 img.add-icon {
 	height: 80%;
 	width: auto;
 	object-fit: fill;
-	opacity: 0.2;
+	opacity: 0.5;
 	transition: 0.2s;
+}
+
+.new {
+	opacity: 0.5;
+	&:active {
+		opacity: 1;
+	}
 }

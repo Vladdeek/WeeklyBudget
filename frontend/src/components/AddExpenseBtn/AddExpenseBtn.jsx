@@ -1,4 +1,5 @@
 import React from 'react'
+import '../AddExpenseBtn/AddExpenseBtn.css'
 import AddBtnIcon from '../../assets/image/addbtn.ico'
 
 const AddExpenseBtn = ({ showCreateModal }) => {

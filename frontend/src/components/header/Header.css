@@ -9,3 +9,15 @@ header {
 	font-size: 28px;
 	font-weight: 700;
 }
+.DayIndex {
+	margin: 0 !important;
+	font-size: 32px;
+	font-weight: 900;
+}
+.BackBtn {
+	width: auto;
+	height: 40px;
+}
+.BetweenCon {
+	width: 100%;
+}
