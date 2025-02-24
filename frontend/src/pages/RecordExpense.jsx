@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import ExpenseCard from '../components/ExpenseCard/ExpenseCard'
 import AddExpenseBtn from '../components/AddExpenseBtn/AddExpenseBtn'
@@ -18,24 +18,96 @@ const RecordExpense = () => {
 
 	const [expenses, setExpenses] = useState([])
 
+	// Функция для показа всех трат
+	useEffect(() => {
+		const fetchExpenses = async () => {
+			try {
+				const response = await fetch(
+					`http://localhost:8000/expense/?day_id=${Number(dayNumber)}`
+				)
+				const data = await response.json()
+				console.log('Полученные траты:', data) // Логируем, что вернул сервер
+				if (response.ok) {
+					setExpenses(data)
+				} else {
+					console.error('Ошибка при получении трат:', data.detail)
+				}
+			} catch (error) {
+				console.error('Ошибка при отправке запроса:', error)
+			}
+		}
+
+		fetchExpenses()
+	}, [dayId]) // перезапускаем при изменении dayId
+
 	// Функция для добавления траты
-	const addExpense = newExpense => {
-		setExpenses([
-			...expenses,
-			{ expenseText: newExpense, amount: Number(newExpense) },
-		])
+	const addExpense = async newExpense => {
+		const payload = {
+			expense: newExpense,
+			day_id: Number(dayNumber), // убеждаемся, что число
+		}
+
+		console.log('Отправляемый объект:', payload) // Логируем
+
+		try {
+			const response = await fetch('http://localhost:8000/expense/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(payload),
+			})
+			const data = await response.json()
+
+			if (response.ok) {
+				setExpenses(prevExpenses => [...prevExpenses, data])
+			} else {
+				console.error('Ошибка при добавлении траты:', data.detail)
+			}
+		} catch (error) {
+			console.error('Ошибка при отправке запроса:', error)
+		}
 	}
 
 	// Функция для удаления траты
-	const delExpense = expenseText => {
-		setExpenses(expenses.filter(expense => expense.expenseText !== expenseText))
+	const delExpense = async expenseId => {
+		try {
+			const response = await fetch(`/expense/${expenseId}`, {
+				method: 'DELETE',
+			})
+			const data = await response.json()
+			if (response.ok) {
+				setExpenses(prevExpenses =>
+					prevExpenses.filter(expense => expense.id !== expenseId)
+				)
+			} else {
+				console.error('Ошибка при удалении траты:', data.detail)
+			}
+		} catch (error) {
+			console.error('Ошибка при отправке запроса:', error)
+		}
 	}
 
 	// Считаем общую сумму трат
-	const totalExpenses = expenses.reduce(
-		(total, expense) => total + expense.amount,
-		0
-	)
+	const [totalExpenses, setTotalExpenses] = useState(0)
+
+	useEffect(() => {
+		const fetchTotalExpenses = async () => {
+			try {
+				const response = await fetch(`/expensesum/?day_id=${dayId}`)
+				const data = await response.json()
+				if (response.ok) {
+					setTotalExpenses(data)
+				} else {
+					console.error('Ошибка при получении суммы расходов:', data.detail)
+				}
+			} catch (error) {
+				console.error('Ошибка при отправке запроса:', error)
+			}
+		}
+
+		fetchTotalExpenses()
+	}, [dayId]) // перезапускаем при изменении dayId
 
 	return (
 		<>
@@ -50,8 +122,8 @@ const RecordExpense = () => {
 						{expenses.map((expense, index) => (
 							<ExpenseCard
 								key={index}
-								expenseText={expense.expenseText}
-								delExpense={() => delExpense(expense.expenseText)} // передаем функцию удаления для траты
+								expenseText={expense.expense} // Тут было неправильно, исправил
+								delExpense={() => delExpense(expense.id)} // Удалять надо по ID, а не по expense
 							/>
 						))}
 						<AddExpenseBtn showCreateModal={showCreateModal} />
