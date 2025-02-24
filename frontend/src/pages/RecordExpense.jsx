@@ -17,6 +17,28 @@ const RecordExpense = () => {
 	const hideCreateModal = () => setShowModal(false)
 
 	const [expenses, setExpenses] = useState([])
+	const [totalExpenses, setTotalExpenses] = useState(0)
+
+	// Считаем общую сумму трат
+	useEffect(() => {
+		const fetchTotalExpenses = async () => {
+			try {
+				const response = await fetch(
+					`http://localhost:8000/expensesum/?day_id=${Number(dayNumber)}`
+				)
+				const data = await response.json()
+				if (response.ok) {
+					setTotalExpenses(data)
+				} else {
+					console.error('Ошибка при получении суммы расходов:', data.detail)
+				}
+			} catch (error) {
+				console.error('Ошибка при отправке запроса:', error)
+			}
+		}
+
+		fetchTotalExpenses()
+	}, [dayId]) // перезапускаем при изменении dayId
 
 	// Функция для показа всех трат
 	useEffect(() => {
@@ -61,6 +83,7 @@ const RecordExpense = () => {
 
 			if (response.ok) {
 				setExpenses(prevExpenses => [...prevExpenses, data])
+				setTotalExpenses(prevTotal => prevTotal + data.expense) // Обновляем сумму сразу
 			} else {
 				console.error('Ошибка при добавлении траты:', data.detail)
 			}
@@ -72,6 +95,9 @@ const RecordExpense = () => {
 	// Функция для удаления траты
 	const delExpense = async expenseId => {
 		try {
+			const expenseToDelete = expenses.find(exp => exp.id === expenseId) // Ищем сумму перед удалением
+			if (!expenseToDelete) return
+
 			const response = await fetch(
 				`http://localhost:8000/expense/${expenseId}`,
 				{
@@ -88,33 +114,11 @@ const RecordExpense = () => {
 			setExpenses(prevExpenses =>
 				prevExpenses.filter(expense => expense.id !== expenseId)
 			)
+			setTotalExpenses(prevTotal => prevTotal - expenseToDelete.expense) // Мгновенно уменьшаем сумму
 		} catch (error) {
 			console.error('Ошибка при отправке запроса:', error)
 		}
 	}
-
-	// Считаем общую сумму трат
-	const [totalExpenses, setTotalExpenses] = useState(0)
-
-	useEffect(() => {
-		const fetchTotalExpenses = async () => {
-			try {
-				const response = await fetch(
-					`http://localhost:8000/expensesum/?day_id=${Number(dayNumber)}`
-				)
-				const data = await response.json()
-				if (response.ok) {
-					setTotalExpenses(data)
-				} else {
-					console.error('Ошибка при получении суммы расходов:', data.detail)
-				}
-			} catch (error) {
-				console.error('Ошибка при отправке запроса:', error)
-			}
-		}
-
-		fetchTotalExpenses()
-	}, [dayId]) // перезапускаем при изменении dayId
 
 	return (
 		<>
