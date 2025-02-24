@@ -72,17 +72,22 @@ const RecordExpense = () => {
 	// Функция для удаления траты
 	const delExpense = async expenseId => {
 		try {
-			const response = await fetch(`/expense/${expenseId}`, {
-				method: 'DELETE',
-			})
-			const data = await response.json()
-			if (response.ok) {
-				setExpenses(prevExpenses =>
-					prevExpenses.filter(expense => expense.id !== expenseId)
-				)
-			} else {
-				console.error('Ошибка при удалении траты:', data.detail)
+			const response = await fetch(
+				`http://localhost:8000/expense/${expenseId}`,
+				{
+					method: 'DELETE',
+				}
+			)
+
+			if (!response.ok) {
+				console.error('Ошибка при удалении траты:', response.status)
+				return
 			}
+
+			// Удаляем трату из состояния
+			setExpenses(prevExpenses =>
+				prevExpenses.filter(expense => expense.id !== expenseId)
+			)
 		} catch (error) {
 			console.error('Ошибка при отправке запроса:', error)
 		}
@@ -94,7 +99,9 @@ const RecordExpense = () => {
 	useEffect(() => {
 		const fetchTotalExpenses = async () => {
 			try {
-				const response = await fetch(`/expensesum/?day_id=${dayId}`)
+				const response = await fetch(
+					`http://localhost:8000/expensesum/?day_id=${Number(dayNumber)}`
+				)
 				const data = await response.json()
 				if (response.ok) {
 					setTotalExpenses(data)
