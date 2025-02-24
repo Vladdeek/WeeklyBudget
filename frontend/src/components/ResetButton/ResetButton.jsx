@@ -16,8 +16,10 @@ const clearDatabase = async () => {
 
 const ResetButton = () => {
 	return (
-		<div class='col-12 d-flex justify-content-center'>
-			<button onClick={clearDatabase}>очистить</button>
+		<div className='col-12 d-flex justify-content-center'>
+			<button className='reset-btn' onClick={clearDatabase}>
+				очистить
+			</button>
 		</div>
 	)
 }
