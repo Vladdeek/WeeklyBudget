@@ -4,7 +4,6 @@ import Header from '../components/header/Header'
 import ResetButton from '../components/ResetButton/ResetButton'
 
 const DailyExpenses = () => {
-	const WeaklyBudget = 3000
 	const [expenses] = useState([
 		{ id: 1, dailyCost: 0 },
 		{ id: 2, dailyCost: 0 },
@@ -15,33 +14,28 @@ const DailyExpenses = () => {
 		{ id: 7, dailyCost: 0 },
 	])
 
-	// Считаем общую сумму расходов
-	const totalExpenses = expenses.reduce(
-		(total, expense) => total + expense.dailyCost,
-		0
-	)
+	const [totalExpenses, setTotalExpenses] = useState(0)
 
-	// Вычитаем сумму расходов из бюджета
-	const remainingBudget = WeaklyBudget - totalExpenses
-
-	// Состояние для отображения общего бюджета или суммы расходов
-	const [showTotalExpenses, setShowTotalExpenses] = useState(false)
-
-	// Функция для смены состояния при клике на хедер
-	const handleHeaderClick = () => {
-		setShowTotalExpenses(!showTotalExpenses)
+	// Считаем общую сумму трат
+	const fetchTotalExpenses = async () => {
+		try {
+			const response = await fetch(`http://localhost:8000/allexpensesum/`)
+			const data = await response.json()
+			console.log(data)
+			if (response.ok) {
+				setTotalExpenses(data)
+			} else {
+				console.error('Ошибка при получении суммы расходов:', data.detail)
+			}
+		} catch (error) {
+			console.error('Ошибка при отправке запроса:', error)
+		}
 	}
+	fetchTotalExpenses()
 
 	return (
 		<>
-			{/* При клике на Header меняем отображение */}
-			<Header
-				DayIndex={''}
-				WeaklyBudget={
-					showTotalExpenses ? `-${totalExpenses} ₽` : `${remainingBudget} ₽`
-				}
-				handleClick={handleHeaderClick}
-			/>
+			<Header DayIndex={''} WeaklyBudget={`-${totalExpenses}₽`} />
 			<section>
 				<div className='container todo-con'>
 					<div className='row todo-row'>
