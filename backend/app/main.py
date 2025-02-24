@@ -102,6 +102,16 @@ async def expense(db: Session = Depends(get_db)):
     expenses = db.query(Expense).all()  # Получаем все задачи
     return expenses  # Возвращаем задачи
 
+@app.delete("/clear_db/")
+async def clear_database(db: Session = Depends(get_db)):
+    try:
+        db.query(Expense).delete()  # Удаляем все записи из таблицы Expense
+        db.commit()
+        return {"message": "Все данные успешно удалены"}
+    except Exception as e:
+        db.rollback()
+        return {"error": str(e)}
+
 
 
 #Регистрация авторизация

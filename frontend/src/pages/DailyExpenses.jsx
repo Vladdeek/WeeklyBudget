@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import DayCard from '../components/DayCard/Day-Card'
 import Header from '../components/header/Header'
 import ResetButton from '../components/ResetButton/ResetButton'
 
 const DailyExpenses = () => {
-	const [expenses] = useState([
+	const [expenses, setExpenses] = useState([
 		{ id: 1, dailyCost: 0 },
 		{ id: 2, dailyCost: 0 },
 		{ id: 3, dailyCost: 0 },
@@ -16,22 +16,56 @@ const DailyExpenses = () => {
 
 	const [totalExpenses, setTotalExpenses] = useState(0)
 
-	// Считаем общую сумму трат
-	const fetchTotalExpenses = async () => {
-		try {
-			const response = await fetch(`http://localhost:8000/allexpensesum/`)
-			const data = await response.json()
-			console.log(data)
-			if (response.ok) {
-				setTotalExpenses(data)
-			} else {
-				console.error('Ошибка при получении суммы расходов:', data.detail)
-			}
-		} catch (error) {
-			console.error('Ошибка при отправке запроса:', error)
+	// Загружаем сумму трат для каждого дня
+	useEffect(() => {
+		const fetchDailyExpenses = async () => {
+			const updatedExpenses = await Promise.all(
+				expenses.map(async expense => {
+					try {
+						const response = await fetch(
+							`http://localhost:8000/expensesum/?day_id=${expense.id}`
+						)
+						const data = await response.json()
+						if (response.ok) {
+							return { ...expense, dailyCost: data }
+						} else {
+							console.error(
+								`Ошибка загрузки данных для дня ${expense.id}:`,
+								data.detail
+							)
+							return expense
+						}
+					} catch (error) {
+						console.error(`Ошибка запроса для дня ${expense.id}:`, error)
+						return expense
+					}
+				})
+			)
+
+			setExpenses(updatedExpenses)
 		}
-	}
-	fetchTotalExpenses()
+
+		fetchDailyExpenses()
+	}, []) // Выполняем один раз при загрузке страницы
+
+	// Загружаем общую сумму всех трат
+	useEffect(() => {
+		const fetchTotalExpenses = async () => {
+			try {
+				const response = await fetch(`http://localhost:8000/allexpensesum/`)
+				const data = await response.json()
+				if (response.ok) {
+					setTotalExpenses(data)
+				} else {
+					console.error('Ошибка при получении суммы расходов:', data.detail)
+				}
+			} catch (error) {
+				console.error('Ошибка при отправке запроса:', error)
+			}
+		}
+
+		fetchTotalExpenses()
+	}, []) // Выполняем один раз при загрузке страницы
 
 	return (
 		<>

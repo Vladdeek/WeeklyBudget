@@ -16,7 +16,7 @@ const DayCard = ({ id, dailyCost }) => {
 			style={{ cursor: 'pointer' }}
 		>
 			<div className='info-con'>
-				<p className='dailyCost'>{dailyCost} ₽</p>
+				<p className='dailyCost'>-{dailyCost} ₽</p>
 			</div>
 			<div className='number-con'>
 				<p className='day-number'>{id}</p>
