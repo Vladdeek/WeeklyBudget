@@ -77,6 +77,13 @@ async def get_expense_sum(day_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="No expenses found for this day")
     return total
 
+@app.get("/allexpensesum/", response_model=int)
+async def get_expense_sum(db: Session = Depends(get_db)):
+    total = db.query(func.sum(Expense.expense)).scalar()
+    if total is None:
+        raise HTTPException(status_code=404, detail="No expenses found for this day")
+    return total
+
 
 @app.delete("/expense/{id}")
 async def delete_expense(id: int, db: Session = Depends(get_db)):
