@@ -42,7 +42,8 @@
 	width: 95% !important;
 	border-radius: 15px !important;
 	margin: 2.5%;
-	border: solid 1px rgba(0, 0, 0, 0.25);
+	border: solid 1px transparent !important;
+	box-shadow: rgba(0, 0, 0, 0.1) 2px 2px 12px !important;
 	transition: 0.2s;
 	user-select: none;
 	-webkit-user-select: none;

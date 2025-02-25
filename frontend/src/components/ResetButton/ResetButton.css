@@ -1,9 +1,9 @@
 .reset-btn {
-	background-color: white;
+	background-color: red;
 	border-radius: 15px;
 	font-size: 20px;
 	border: solid 1px rgba(127, 127, 127, 0.25);
-	color: red;
+	color: white;
 	font-weight: 100;
 	transition: 0.25s;
 	height: 45px;
@@ -14,9 +14,7 @@
 	cursor: pointer;
 	margin-bottom: 10px;
 	&:active {
-		transform: scale(0.9875);
-		background-color: red;
-		color: white;
+		transform: scale(0.925);
 		transition: 0.25s;
 	}
 }
