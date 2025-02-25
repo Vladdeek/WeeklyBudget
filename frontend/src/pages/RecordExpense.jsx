@@ -5,6 +5,8 @@ import AddExpenseBtn from '../components/AddExpenseBtn/AddExpenseBtn'
 import Modal from '../components/Modal/Modal'
 import Header from '../components/header/Header'
 
+const API_URL = 'http://192.168.1.101:8000'
+
 const RecordExpense = () => {
 	const [showModal, setShowModal] = useState(false)
 	const { dayId } = useParams() // Получаем параметр дня из URL
@@ -24,7 +26,7 @@ const RecordExpense = () => {
 		const fetchTotalExpenses = async () => {
 			try {
 				const response = await fetch(
-					`http://localhost:8000/expensesum/?day_id=${Number(dayNumber)}`
+					`${API_URL}/expensesum/?day_id=${Number(dayNumber)}`
 				)
 				const data = await response.json()
 				if (response.ok) {
@@ -45,7 +47,7 @@ const RecordExpense = () => {
 		const fetchExpenses = async () => {
 			try {
 				const response = await fetch(
-					`http://localhost:8000/expense/?day_id=${Number(dayNumber)}`
+					`${API_URL}/expense/?day_id=${Number(dayNumber)}`
 				)
 				const data = await response.json()
 				console.log('Полученные траты:', data) // Логируем, что вернул сервер
@@ -72,7 +74,7 @@ const RecordExpense = () => {
 		console.log('Отправляемый объект:', payload) // Логируем
 
 		try {
-			const response = await fetch('http://localhost:8000/expense/', {
+			const response = await fetch(`${API_URL}/expense/`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -98,12 +100,9 @@ const RecordExpense = () => {
 			const expenseToDelete = expenses.find(exp => exp.id === expenseId) // Ищем сумму перед удалением
 			if (!expenseToDelete) return
 
-			const response = await fetch(
-				`http://localhost:8000/expense/${expenseId}`,
-				{
-					method: 'DELETE',
-				}
-			)
+			const response = await fetch(`${API_URL}/expense/${expenseId}`, {
+				method: 'DELETE',
+			})
 
 			if (!response.ok) {
 				console.error('Ошибка при удалении траты:', response.status)

@@ -3,6 +3,8 @@ import DayCard from '../components/DayCard/Day-Card'
 import Header from '../components/header/Header'
 import ResetButton from '../components/ResetButton/ResetButton'
 
+const API_URL = 'http://192.168.1.101:8000'
+
 const DailyExpenses = () => {
 	const [expenses, setExpenses] = useState([
 		{ id: 1, dailyCost: 0 },
@@ -23,7 +25,7 @@ const DailyExpenses = () => {
 				expenses.map(async expense => {
 					try {
 						const response = await fetch(
-							`http://localhost:8000/expensesum/?day_id=${expense.id}`
+							`${API_URL}/expensesum/?day_id=${expense.id}`
 						)
 						const data = await response.json()
 						if (response.ok) {
@@ -52,7 +54,7 @@ const DailyExpenses = () => {
 	useEffect(() => {
 		const fetchTotalExpenses = async () => {
 			try {
-				const response = await fetch(`http://localhost:8000/allexpensesum/`)
+				const response = await fetch(`${API_URL}/allexpensesum/`)
 				const data = await response.json()
 				if (response.ok) {
 					setTotalExpenses(data)

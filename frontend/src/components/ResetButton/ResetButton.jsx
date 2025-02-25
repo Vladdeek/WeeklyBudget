@@ -1,9 +1,11 @@
 import React from 'react'
 import '../ResetButton/ResetButton.css'
 
+const API_URL = 'http://192.168.1.101:8000'
+
 const clearDatabase = async () => {
 	try {
-		const response = await fetch('http://localhost:8000/clear_db/', {
+		const response = await fetch(`${API_URL}/clear_db/`, {
 			method: 'DELETE',
 		})
 		const data = await response.json()
